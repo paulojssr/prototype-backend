@@ -3,7 +3,7 @@
 
 # Sobre o projeto
 
-ProtoType é uma aplicação full stack web construída pela turma do 1° período de engenharia de software para auxiliar os profissionais da área de Eng. de Requisitos.
+ProtoType é uma aplicação full stack web para auxiliar os profissionais da área de Eng. de Requisitos.
 
 A aplicação consiste em gerar prótotipos, onde os dados descritos pelo usuário são coletados e processados pelo chatGPT por meio de uma API.
 
