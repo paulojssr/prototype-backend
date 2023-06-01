@@ -45,15 +45,11 @@ Modelo Entidade Relacionamento:
 - Java
 
 
-## Front end:
-
-- HTML / CSS 
 
 
 ## Implantação em produção
 
 - Back end: Heroku
-- Front end web: Netlify
 - Banco de dados: PostgreSql
 
 
@@ -74,22 +70,7 @@ cd backend
 ./mvnw spring-boot:run
 ```
 
-## Front end 
-Pré-requisitos: npm / yarn
 
-```bash
-# clonar repositório
-git clone https://github.com/devsuperior/sds1-wmazoni
-
-# entrar na pasta do projeto front end web
-cd front-web
-
-# instalar dependências
-yarn install
-
-# executar o projeto
-yarn start
-```
 
 # Autores 👨‍🔬
 
