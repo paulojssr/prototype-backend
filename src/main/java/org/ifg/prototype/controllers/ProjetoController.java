@@ -6,6 +6,7 @@ import org.ifg.prototype.entities.Usuario;
 import org.ifg.prototype.entities.enums.ProjetoEnums;
 import org.ifg.prototype.services.ProjetoService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,15 +27,8 @@ public class ProjetoController {
     /**
      * Injeção de dependência
      */
-    private final ProjetoService projetoService;
-
-    /**
-     * Construtor
-     * @param projetoService
-     */
-    public ProjetoController(ProjetoService projetoService) {
-        this.projetoService = projetoService;
-    }
+    @Autowired
+    private ProjetoService projetoService;
 
     /**
      * Método salvar projeto no banco de dados e retornar o objeto salvo

@@ -3,6 +3,7 @@ package org.ifg.prototype.services;
 import org.ifg.prototype.dto.ProjetoDTO;
 import org.ifg.prototype.entities.Projeto;
 import org.ifg.prototype.repositories.ProjetoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +19,10 @@ import java.util.stream.Collectors;
 public class ProjetoService {
 
     /**
-     * A instância do repositório para a entidade {@link Projeto}.
-     * Injeção de dependência da classe ProjetoRepository
-     * para a classe ProjetoService através do construtor.
+     * Injeção de dependência
      */
-    private final ProjetoRepository projetoRepository;
+    @Autowired
+    ProjetoRepository projetoRepository;
 
     public ProjetoService(ProjetoRepository projetoRepository) {
         this.projetoRepository = projetoRepository;
