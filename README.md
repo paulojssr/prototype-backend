@@ -33,7 +33,7 @@ Use Case:
 Modelo Entidade Relacionamento: 
 
 
-![M.E.R.](https://github.com/paulojssr/prototype-backend/assets/91094257/87dc3a97-c458-4e4f-976d-d4e22c854482)
+![M.E.R.](https://github.com/paulojssr/prototype-backend/assets/91094257/134ce1d3-563f-4851-8048-b61bff5866c4)
 
 
 
