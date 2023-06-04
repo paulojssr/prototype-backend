@@ -1,10 +1,11 @@
 package org.ifg.prototype.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.ifg.prototype.entities.enums.ProjetoEnums;
+import org.ifg.prototype.entities.enums.ProjetoStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -39,7 +40,11 @@ public class Projeto implements Serializable {
      */
     @Column(name = "data_inicio")
     @JsonFormat (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime dataInicio;
+    private LocalDate dataInicio;
+
+    @Column(name = "data_fim")
+    @JsonFormat (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dataFim;
 
     /**
      * @ManyToOne - Define o relacionamento entre as entidades
@@ -53,7 +58,7 @@ public class Projeto implements Serializable {
      * @Enumerated - Define o tipo de enumeração
      */
     @Enumerated(EnumType.STRING)
-    private ProjetoEnums status;
+    private ProjetoStatus status;
 
     /**
      * @return the codigo
@@ -104,16 +109,20 @@ public class Projeto implements Serializable {
      *
      * @return
      */
-    public LocalDateTime getDataInicio() {
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    /**
-     *
-     * @param dataInicio
-     */
-    public void setDataInicio(LocalDateTime dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
 
     /**
@@ -136,7 +145,7 @@ public class Projeto implements Serializable {
      *
      * @return
      */
-    public ProjetoEnums getStatus() {
+    public ProjetoStatus getStatus() {
         return status;
     }
 
@@ -144,7 +153,7 @@ public class Projeto implements Serializable {
      *
      * @param status
      */
-    public void setStatus(ProjetoEnums status) {
+    public void setStatus(ProjetoStatus status) {
         this.status = status;
     }
 

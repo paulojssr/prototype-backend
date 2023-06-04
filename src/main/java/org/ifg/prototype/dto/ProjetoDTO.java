@@ -1,9 +1,11 @@
 package org.ifg.prototype.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.ifg.prototype.entities.Projeto;
 import org.ifg.prototype.entities.Usuario;
+import org.ifg.prototype.entities.enums.ProjetoStatus;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 /**
@@ -14,9 +16,13 @@ public class ProjetoDTO {
     private Long codigo;
     private String nome;
     private String descricao;
-    private LocalDateTime dataInicio;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dataInicio;
+    @JsonFormat (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dataFim;
     private Usuario usuario;
     private Long codigoUsuario;
+    private ProjetoStatus status;
 
     /**
      *
@@ -27,7 +33,9 @@ public class ProjetoDTO {
         this.nome = projeto.getNome();
         this.descricao = projeto.getDescricao();
         this.dataInicio = projeto.getDataInicio();
+        this.dataFim = projeto.getDataFim();
         this.usuario = projeto.getUsuario();
+        this.status = projeto.getStatus();
     }
 
     /**
@@ -40,8 +48,10 @@ public class ProjetoDTO {
         this.nome = projeto.getNome();
         this.descricao = projeto.getDescricao();
         this.dataInicio = projeto.getDataInicio();
+        this.dataFim = projeto.getDataFim();
         this.usuario = projeto.getUsuario();
         this.codigoUsuario = codigoUsuario;
+        this.status = projeto.getStatus();
     }
 
     /**
@@ -75,12 +85,20 @@ public class ProjetoDTO {
         this.descricao = descricao;
     }
 
-    public LocalDateTime getDataInicio() {
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDateTime dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDate dataFim) {
+        this.dataFim = dataFim;
     }
 
     public Usuario getUsuario() {
@@ -93,6 +111,14 @@ public class ProjetoDTO {
 
     public Long getCodigoUsuario() {
         return codigoUsuario;
+    }
+
+    public ProjetoStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProjetoStatus status) {
+        this.status = status;
     }
 
     public void setCodigoUsuario(Long codigoUsuario) {

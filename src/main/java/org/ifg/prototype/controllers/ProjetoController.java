@@ -3,7 +3,7 @@ package org.ifg.prototype.controllers;
 import org.ifg.prototype.dto.ProjetoDTO;
 import org.ifg.prototype.entities.Projeto;
 import org.ifg.prototype.entities.Usuario;
-import org.ifg.prototype.entities.enums.ProjetoEnums;
+import org.ifg.prototype.entities.enums.ProjetoStatus;
 import org.ifg.prototype.services.ProjetoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -41,8 +42,8 @@ public class ProjetoController {
             BeanUtils.copyProperties(projetoDTO, projeto, "usuario");
             projeto.setUsuario(new Usuario());
             projeto.getUsuario().setCodigo(projetoDTO.getCodigoUsuario());
-            projeto.setDataInicio(LocalDateTime.ofInstant(Instant.now(), ZoneOffset.UTC));
-            projeto.setStatus(ProjetoEnums.ATIVO);
+            projeto.setDataInicio(LocalDate.ofInstant(Instant.now(), ZoneOffset.UTC));
+            projeto.setStatus(ProjetoStatus.ATIVO);
             projeto.setCodigo(projetoService.save(projeto).getCodigo());
             return ResponseEntity.ok().body(projeto);
         } catch (Exception e) {
@@ -63,8 +64,16 @@ public class ProjetoController {
         Optional<ProjetoDTO> projetoOptional = projetoService.findById(codigo);
         if(projetoOptional.isPresent()){
             Projeto projeto = new Projeto();
-            BeanUtils.copyProperties(projetoDTO, projeto);
+            //BeanUtils.copyProperties(projetoDTO, projeto);
+
+            projeto.setCodigo(projetoOptional.get().getCodigo());
+            projeto.setNome(projetoDTO.getNome());
+            projeto.setDescricao(projetoDTO.getDescricao());
             projeto.setDataInicio(projetoOptional.get().getDataInicio());
+            projeto.setDataFim(projetoOptional.get().getDataFim());
+            projeto.setUsuario(projetoOptional.get().getUsuario());
+            projeto.setStatus(projetoOptional.get().getStatus());
+
             projetoService.update(projeto);
             return ResponseEntity.status(HttpStatus.OK).body("Projeto Atualizado!");
         } else{
