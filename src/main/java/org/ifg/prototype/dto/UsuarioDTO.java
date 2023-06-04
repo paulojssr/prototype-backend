@@ -13,7 +13,6 @@ public class UsuarioDTO {
 
 	private Long codigo;
 	private String nome;
-	private String login;
 	private String email;
 	private String senha;
 	
@@ -28,7 +27,6 @@ public class UsuarioDTO {
 	public UsuarioDTO(Usuario usuario) {
 		this.codigo = usuario.getCodigo();
 		this.nome = usuario.getNome();
-		this.login = usuario.getLogin();
 		this.email = usuario.getEmail();
 		this.senha = usuario.getSenha();
 	}
@@ -55,18 +53,6 @@ public class UsuarioDTO {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	/**
-	 * @return the login
-	 */
-	public String getLogin() {
-		return login;
-	}
-	/**
-	 * @param login the login to set
-	 */
-	public void setLogin(String login) {
-		this.login = login;
 	}
 	/**
 	 * @return the email
