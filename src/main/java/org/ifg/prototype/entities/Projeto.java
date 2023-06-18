@@ -6,7 +6,6 @@ import org.ifg.prototype.entities.enums.ProjetoStatus;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -39,11 +38,11 @@ public class Projeto implements Serializable {
      * @Column - Define o nome da coluna no banco de dados
      */
     @Column(name = "data_inicio")
-    @JsonFormat (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataInicio;
 
     @Column(name = "data_fim")
-    @JsonFormat (shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dataFim;
 
     /**
@@ -159,10 +158,13 @@ public class Projeto implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Projeto)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Projeto))
+            return false;
         Projeto projeto = (Projeto) o;
-        return Objects.equals(codigo, projeto.codigo) && Objects.equals(nome, projeto.nome) && Objects.equals(usuario, projeto.usuario);
+        return Objects.equals(codigo, projeto.codigo) && Objects.equals(nome, projeto.nome)
+                && Objects.equals(usuario, projeto.usuario);
     }
 
     @Override

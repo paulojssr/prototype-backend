@@ -3,9 +3,7 @@ package org.ifg.prototype.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import org.aspectj.lang.annotation.Pointcut;
 import org.ifg.prototype.dto.DadosRequisitoDTO;
-import org.ifg.prototype.dto.RequisitoDTO;
 import org.ifg.prototype.entities.DadosRequisito;
 import org.ifg.prototype.entities.Requisito;
 import org.ifg.prototype.services.DadosRequisitoService;
