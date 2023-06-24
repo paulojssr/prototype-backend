@@ -71,7 +71,7 @@ public class RequisitoController {
             return ResponseEntity.status(HttpStatus.OK).body("Requisito Atualizado!");
 
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body("Requisito não encontrado!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Requisito não encontrado!");
         }
 
     }
