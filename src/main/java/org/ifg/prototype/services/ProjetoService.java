@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.OrderBy;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,8 +45,8 @@ public class ProjetoService {
      * @param projeto
      */
     @Transactional
-    public void update(Projeto projeto) {
-        projetoRepository.save(projeto);
+    public Projeto update(Projeto projeto)  {
+        return projetoRepository.save(projeto);
     }
 
     /**
@@ -65,6 +66,7 @@ public class ProjetoService {
      *
      * @return
      */
+    @OrderBy ("nome")
     @Transactional(readOnly = true)
     public List<ProjetoDTO> findAll() {
         List<Projeto> result = projetoRepository.findAll();
