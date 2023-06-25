@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.OrderBy;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -74,6 +75,7 @@ public class PromptService {
      *
      * @return Optional<Prompt>
      */
+    @OrderBy ("nome")
     @Transactional (readOnly = true)
     public List<PromptDTO> findAll() {
         return promptRepository.findAll().stream()

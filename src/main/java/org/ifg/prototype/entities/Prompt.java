@@ -52,7 +52,7 @@ public class Prompt implements Serializable {
     }
 
     public Long getCodigo() {
-        return codigo;
+        return codigo = codigo == null ? 0 : codigo;
     }
 
     public void setCodigo(Long codigo) {

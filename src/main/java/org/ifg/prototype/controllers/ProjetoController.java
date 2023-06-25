@@ -32,7 +32,6 @@ public class ProjetoController {
 
     /**
      * Método salvar projeto no banco de dados e retornar o objeto salvo
-     * 
      * @return
      */
     @PostMapping(value = "/salvar")
@@ -53,20 +52,17 @@ public class ProjetoController {
 
     /**
      * Método para atualizar o projeto no banco de dados
-     * 
      * @param codigo
      * @param projetoDTO
      * @return
      */
-    @PutMapping("/atualizarprojeto/{codigo}")
-    public ResponseEntity<Object> projetoUpdate(@PathVariable(value = "codigo") Long codigo,
-            @RequestBody ProjetoDTO projetoDTO) {
+    @PutMapping ("/atualizarprojeto/{codigo}")
+    public ResponseEntity<Object> projetoUpdate(@PathVariable (value = "codigo") Long codigo,
+                                             @RequestBody ProjetoDTO projetoDTO){
         projetoDTO.setCodigo(codigo);
         Optional<ProjetoDTO> projetoOptional = projetoService.findById(codigo);
-        if (projetoOptional.isPresent()) {
+        if(projetoOptional.isPresent()){
             Projeto projeto = new Projeto();
-            // BeanUtils.copyProperties(projetoDTO, projeto);
-
             projeto.setCodigo(projetoOptional.get().getCodigo());
             projeto.setNome(projetoDTO.getNome());
             projeto.setDescricao(projetoDTO.getDescricao());
@@ -74,22 +70,20 @@ public class ProjetoController {
             projeto.setDataFim(projetoOptional.get().getDataFim());
             projeto.setUsuario(projetoOptional.get().getUsuario());
             projeto.setStatus(projetoOptional.get().getStatus());
-
             projetoService.update(projeto);
             return ResponseEntity.status(HttpStatus.OK).body("Projeto Atualizado!");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Projeto Não Encontrado!");
+        } else{
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Projeto Não Encontrado!");
         }
     }
 
     /**
      * Método para deletar o projeto no banco de dados
-     * 
      * @param codigo
      * @return
      */
     @GetMapping("/pesquisarprojeto/{codigo}")
-    public ResponseEntity<Object> buscarProjeto(@PathVariable(value = "codigo") Long codigo) {
+    public ResponseEntity<Object> buscarProjeto(@PathVariable (value = "codigo") Long codigo) {
         Optional<ProjetoDTO> projetoDTOOptional = projetoService.findById(codigo);
         if (!projetoDTOOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Projeto não encontrado.");
@@ -100,7 +94,6 @@ public class ProjetoController {
 
     /**
      * Método para listar todos os projetos no banco de dados
-     * 
      * @param
      * @return
      */
