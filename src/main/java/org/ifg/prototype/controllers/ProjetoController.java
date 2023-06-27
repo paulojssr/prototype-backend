@@ -20,6 +20,8 @@ import java.util.Optional;
 /**
  * Criado por Daniel 03/06/2023.
  */
+
+@SuppressWarnings("SpellCheckingInspection")
 @RestController
 @RequestMapping(value = "/projetos")
 public class ProjetoController {
