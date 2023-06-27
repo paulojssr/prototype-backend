@@ -36,7 +36,14 @@ public class PromptController {
     @Autowired
     private PromptService promptService;
 
-    private StringBuilder htmlModelo = new StringBuilder("<!DOCTYPE html>\n" +
+    //marcação para inserção de texto no prompt modelo
+    private final String marcador = "[INSIRA_O_TEXTO_AQUI]";
+    //marcação para início de bloco de texto a ser inserido no prompt modelo
+    private final String palavraToken1 = "<body>";
+    //marcação para fim de bloco de texto a ser inserido no prompt modelo
+    private final String palavraToken2 = "</body>";
+
+    private String htmlModelo = "<!DOCTYPE html>\n" +
             "<html lang=\"pt-BR\">\n" +
             "\n" +
             "<head>\n" +
@@ -317,20 +324,164 @@ public class PromptController {
             "</head>\n" +
             "\n" +
             "<body>\n" +
-            "\n" +
+            "[INSIRA_O_TEXTO_AQUI]" +
             "</body>\n" +
-            "</html>");
+            "</html>";
+
+    String htmlChatGPT = "<!DOCTYPE html>\n" +
+            "<html>\n" +
+            "<head>\n" +
+            "  <title>Exemplo de Página HTML</title>\n" +
+            "</head>\n" +
+            "<body>\n" +
+            "  <div class=\"container\">\n" +
+            "    <div id=\"titulo\" class=\"header\">\n" +
+            "      <label>Cadastro de Usuário</label>\n" +
+            "    </div>\n" +
+            "    <div class=\"block block-one-columns\">\n" +
+            "      <div>\n" +
+            "        <label>Nome</label>\n" +
+            "        <input type=\"text\" />\n" +
+            "      </div>\n" +
+            "    </div>\n" +
+            "    <div class=\"block block-one-columns\">\n" +
+            "      <div>\n" +
+            "        <label>E-mail</label>\n" +
+            "        <input type=\"email\" />\n" +
+            "      </div>\n" +
+            "    </div>\n" +
+            "    <div class=\"block block-two-columns\">\n" +
+            "      <div>\n" +
+            "        <label>Senha</label>\n" +
+            "        <input type=\"password\" />\n" +
+            "      </div>\n" +
+            "      <div>\n" +
+            "        <label>Confirmar Senha</label>\n" +
+            "        <input type=\"password\" />\n" +
+            "      </div>\n" +
+            "    </div>\n" +
+            "    <div class=\"block block-two-columns\">\n" +
+            "      <div>\n" +
+            "        <label>CPF</label>\n" +
+            "        <input type=\"text\" placeholder=\"000.000.000-00\" />\n" +
+            "      </div>\n" +
+            "      <div>\n" +
+            "        <label>RG</label>\n" +
+            "        <input type=\"text\" />\n" +
+            "      </div>\n" +
+            "    </div>\n" +
+            "    <div class=\"block block-six-columns\">\n" +
+            "      <div class=\"check\">\n" +
+            "        <label>Sexo</label>\n" +
+            "        <input type=\"radio\" name=\"sexo\" value=\"Feminino\" /> Feminino\n" +
+            "        <input type=\"radio\" name=\"sexo\" value=\"Masculino\" /> Masculino\n" +
+            "      </div>\n" +
+            "    </div>\n" +
+            "    <div class=\"block block-four-columns\">\n" +
+            "      <div>\n" +
+            "        <label>Telefone</label>\n" +
+            "        <input type=\"text\" placeholder=\"(00) 00000-0000\" />\n" +
+            "      </div>\n" +
+            "    </div>\n" +
+            "    <div class=\"block-one-columns\">\n" +
+            "      <label>Lista de Países</label>\n" +
+            "      <table>\n" +
+            "        <tr>\n" +
+            "          <th>País</th>\n" +
+            "          <th>Sigla</th>\n" +
+            "          <th>Código Telefone</th>\n" +
+            "          <th>Código ISO</th>\n" +
+            "          <th>Continente</th>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 1</td>\n" +
+            "          <td>Sigla 1</td>\n" +
+            "          <td>Código 1</td>\n" +
+            "          <td>ISO 1</td>\n" +
+            "          <td>Continente 1</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 2</td>\n" +
+            "          <td>Sigla 2</td>\n" +
+            "          <td>Código 2</td>\n" +
+            "          <td>ISO 2</td>\n" +
+            "          <td>Continente 2</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 3</td>\n" +
+            "          <td>Sigla 3</td>\n" +
+            "          <td>Código 3</td>\n" +
+            "          <td>ISO 3</td>\n" +
+            "          <td>Continente 3</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 4</td>\n" +
+            "          <td>Sigla 4</td>\n" +
+            "          <td>Código 4</td>\n" +
+            "          <td>ISO 4</td>\n" +
+            "          <td>Continente 4</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 5</td>\n" +
+            "          <td>Sigla 5</td>\n" +
+            "          <td>Código 5</td>\n" +
+            "          <td>ISO 5</td>\n" +
+            "          <td>Continente 5</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 6</td>\n" +
+            "          <td>Sigla 6</td>\n" +
+            "          <td>Código 6</td>\n" +
+            "          <td>ISO 6</td>\n" +
+            "          <td>Continente 6</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 7</td>\n" +
+            "          <td>Sigla 7</td>\n" +
+            "          <td>Código 7</td>\n" +
+            "          <td>ISO 7</td>\n" +
+            "          <td>Continente 7</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 8</td>\n" +
+            "          <td>Sigla 8</td>\n" +
+            "          <td>Código 8</td>\n" +
+            "          <td>ISO 8</td>\n" +
+            "          <td>Continente 8</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 9</td>\n" +
+            "          <td>Sigla 9</td>\n" +
+            "          <td>Código 9</td>\n" +
+            "          <td>ISO 9</td>\n" +
+            "          <td>Continente 9</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "          <td>País 10</td>\n" +
+            "          <td>Sigla 10</td>\n" +
+            "          <td>Código 10</td>\n" +
+            "          <td>ISO 10</td>\n" +
+            "          <td>Continente 10</td>\n" +
+            "        </tr>\n" +
+            "      </table>\n" +
+            "    </div>\n" +
+            "    <div class=\"button-container button-container-align-center\">\n" +
+            "      <button class=\"button\" type=\"submit\">Salvar</button>\n" +
+            "      <button class=\"button\" type=\"button\">Limpar</button>\n" +
+            "    </div>\n" +
+            "    <div class=\"footer\">\n" +
+            "      <label>Protótipo de página HTML gerado automaticamente com auxílio do ChatGPT</label>\n" +
+            "    </div>\n" +
+            "  </div>\n" +
+            "</body>\n" +
+            "</html>\n";
 
 
-    /**
-     * Tem quer ser retirado quando requisitos estiver pronto
-     */
+    // Regex para validação de campos de entrada
     private final String regexValidaNomePrompt = "^[a-zA-Z0-9À-ÿ ]{10,60}$";
     private final String regexValidaPromptModelo = "^[a-zA-Z0-9À-ÿ .,:-]{10,5000}$";
     private String[] colunas = {"primeira coluna", "segunda coluna", "terceira coluna",
             "quarta coluna", "quinta coluna", "sexta coluna"};
-
-
 
     /**
      * Método que salva um prompt
@@ -471,7 +622,7 @@ public class PromptController {
         //treinar o chatGPT com padrões, se provou eficiente
         promptFinal.append("ChatGPT a partir de agora você vai simular que é um construtor de páginas em" +
                 " HTML, irá manter esse dicionário de prompts chave para a construção de um exemplo de página" +
-                " HTML. Não crie nada que eu não peça.\n" +
+                " HTML começando por <body></body>. Não crie nada que eu não peça.\n" +
                 "Armazene as seguintes instruções abaixo\n" +
                 "quando aparecer escrito 'crie um bloco container' escreva na página HTML modelo uma " +
                 "<div class=\"container\"></div>.\n" +
@@ -494,7 +645,6 @@ public class PromptController {
                 "quando aparecer escrito Crie um bloco declarando a classe button-container" +
                 "e button-container-align-center, todos os botões devem estar no mesmo bloco, " +
                 "não crie em bloco separados\n\n");
-
 
         //instruções de criação de blocos
         promptFinal.append("Crie um bloco declarando a classe container, a partir daqui todos os blocos" +
@@ -609,7 +759,7 @@ public class PromptController {
         promptFinal.append(" \n");
         promptFinal.append("Crie um bloco declarando a classe footer com o <label>Protótio de página HTML gerado " +
                 "automaticamente com auxílio do ChatGPT</label>.\n");
-        promptFinal.append("Não crie nenhum código CSS");
+        promptFinal.append("Não crie nenhum código CSS. Não é necessário gerar mais o código Json, gere somente o HTML.\n");
         return promptFinal.toString();
     }
 
@@ -620,6 +770,18 @@ public class PromptController {
         Arrays.sort(requisitos.getListaDadosRequisitos().toArray(new FakeDadosReqDTO[0]), fakeDadosReqDTOComparator);
 
         return ResponseEntity.status(HttpStatus.OK).body(requisitos).getBody();
+    }
+
+    @PostMapping("/prototipo")
+    public ResponseEntity<Object> exibirPrototipo(@RequestBody String html) {
+
+        String htmlChatGPT = html.replaceAll("[{}\\\\]", "");
+        int indiceInicial = htmlChatGPT.indexOf(palavraToken1) + palavraToken1.length();
+        int indiceFinal = htmlChatGPT.indexOf(palavraToken2);
+        String fragmento = htmlChatGPT.substring(indiceInicial, indiceFinal);
+        String htmlModeloFinal = htmlModelo.replace(marcador, fragmento);
+
+        return ResponseEntity.ok().body(htmlModeloFinal);
     }
 
     /**
